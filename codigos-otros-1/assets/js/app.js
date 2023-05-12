@@ -1,7 +1,11 @@
 const baseEndpoint = 'https://api.github.com';
 const usersEndpoint = `${baseEndpoint}/users`;
-const $n = document.querySelector('name');
-const $b = document.querySelector('#blog');
+// Se cambia el query selector ya que esta mandando null
+// De name  a  .name 
+const $n = document.querySelector('.name');
+// Se cambia el query selector ya que estamos seleccionando nuestro objeto por clase y no por ID
+// De #blog  a  .blog
+const $b = document.querySelector('.blog');
 const $l = document.querySelector('.location');
 
 // Marcaba error en el await por que no esta marcada la funcion como asincrona
