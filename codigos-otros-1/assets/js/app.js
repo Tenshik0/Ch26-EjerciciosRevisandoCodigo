@@ -1,3 +1,8 @@
+/*
+  Este codigo lo que hace es que nos trae la informacion del baseEndpoint, de la cual vamos a imprimir
+  en un parrafo en name y el blog.
+*/
+
 const baseEndpoint = 'https://api.github.com';
 const usersEndpoint = `${baseEndpoint}/users`;
 // Se cambia el query selector ya que esta mandando null
