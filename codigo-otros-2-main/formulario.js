@@ -15,9 +15,12 @@ formulario.onsubmit = function (e) {
   // para evitar el comportamiento predeterminado del formulario
   e.preventDefault();
 
-  var n = formulario.elements[0];
-  var e = formulario.elements[1];
-  var na = formulario.elements[2];
+  // Se cambio aqui porque al colocar formulario.elements[0] estamos seleccionado por
+  // indices y es mejor seleecionarlos por su atributo
+  var n = formulario.elements["name"];
+  var e = formulario.elements["age"];
+  var na = formulario.elements["nationality"];
+
 
   var nombre = n.value;
   var edad = e.value;
@@ -48,19 +51,19 @@ var corteLinea = document.createElement("br");
 document.body.appendChild(corteLinea);
 document.body.appendChild(botonBorrar);
 
-
+// En esta funcion se crean elementos del formulario innecesariamente por lo que se
+// elimino esa parte, de igual manera, se puede eliminar la funcion crearElemento ya que
+//ya se ha agregado esos elementos antes de llamar a esa función. También se elimino la 
+//creación de los elementos spanNombre e inputNombre, para usar los elementos existentes.
 function agregarInvitado(nombre, edad, nacionalidad) {
 
   if (nacionalidad === "ar") {
     nacionalidad = "Argentina";
-  }
-  else if (nacionalidad === "mx") {
+  } else if (nacionalidad === "mx") {
     nacionalidad = "Mexicana";
-  }
-  else if (nacionalidad === "vnzl") {
+  } else if (nacionalidad === "vnzl") {
     nacionalidad = "Venezolana";
-  }
-  else if (nacionalidad === "per") {
+  } else if (nacionalidad === "per") {
     nacionalidad = "Peruana";
   }
 
@@ -72,42 +75,26 @@ function agregarInvitado(nombre, edad, nacionalidad) {
   elementoLista.classList.add("elemento-lista");
   lista.appendChild(elementoLista);
 
-  var spanNombre = document.createElement("span");
-  var inputNombre = document.createElement("input");
-  var espacio = document.createElement("br");
-  spanNombre.textContent = "Nombre: ";
-  inputNombre.value = nombre;
-  elementoLista.appendChild(spanNombre);
-  elementoLista.appendChild(inputNombre);
-  elementoLista.appendChild(espacio);
-
-  // se cambiarons los var, ya que puede generar problemas con los var 
-  //ya declarados de arriba
-  function crearElemento(descripcion, valor) {
-    var span = document.createElement("span");
-    var input = document.createElement("input");
-    var espacio = document.createElement("br");
-    span.textContent = descripcion + ": ";
-    input.value = valor;
-    elementoLista.appendChild(span);
-    elementoLista.appendChild(input);
-    elementoLista.appendChild(espacio);
-  }
-
-  crearElemento("Nombre", nombre);
-  crearElemento("Edad", edad);
-  crearElemento("Nacionalidad", nacionalidad);
-
+  elementoLista.innerHTML = `
+    <span>Nombre: </span>
+    <input value="${nombre}">
+    <br>
+    <span>Edad: </span>
+    <input value="${edad}">
+    <br>
+    <span>Nacionalidad: </span>
+    <input value="${nacionalidad}">
+    <br>
+  `;
 
   var botonBorrar = document.createElement("button");
   botonBorrar.textContent = "Eliminar invitado";
   botonBorrar.id = "boton-borrar";
   var corteLinea = document.createElement("br");
   elementoLista.appendChild(corteLinea);
-  elementoLista.appendChild(botonBorrar);;
+  elementoLista.appendChild(botonBorrar);
 
   botonBorrar.onclick = function () {
-    // this.parentNode.style.display = 'none';
     botonBorrar.parentNode.remove();
   };
 }
