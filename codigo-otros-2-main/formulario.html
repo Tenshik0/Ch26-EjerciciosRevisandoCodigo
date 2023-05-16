@@ -11,8 +11,8 @@
 <body>
   <h1>Bienvenidos a mi fiesta</h1>
   <h2>Por favor, confirmar asistencia:</h2>
-  <!-- Se le cambio el class a form para que coencida con el js-->
-  <form class="form">
+  <!-- Se le agrego el id form para que coencida con el JS-->
+  <form class="formulario"  id="form">
     Nombre <input type="text" name="name" id="name">
     <br />
     Edad <input type="number" name="age" id="age">
@@ -26,10 +26,12 @@
       <option value="vnzl">Venezolana</option>
     </select>
     <br />
-    <input type="submit">
+    <!-- Le mando a llamar la funcion agregar invitado-->
+    <input type="submit" value="Agregar invitado">
   </form>
 
-  <div>
+  <!-- Le agrego el id lista-de-invitados para que se anexe la informacion a al lista desde el js-->
+  <div id="lista-de-invitados">
     <h2>Lista de invitados</h2>
 
   </div>

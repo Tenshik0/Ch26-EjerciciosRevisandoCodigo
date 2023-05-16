@@ -4,8 +4,8 @@
 
  A todo el documento se le anexo ";" correspondientes  
  A todo el documento se le dio shit+alt+F para acomodar el codigo*/
-
-var formulario = document.querySelector("#form");
+// Se cambio de #form a form porque asi esta el ID en html
+var formulario = document.getElementById("form");
 
 
 
@@ -23,7 +23,7 @@ formulario.onsubmit = function (e) {
 
 
   var nombre = n.value;
-  var edad = e.value;
+  var edad = parseInt(e.value); // Convertir la edad a un número entero
 
   var i = na.selectedIndex;
   var nacionalidad = na.options[i].value;
@@ -32,16 +32,26 @@ formulario.onsubmit = function (e) {
 
   if (nombre.length === 0) {
     n.classList.add("error");
+  }else{ // anexar else
+    n.classList.remove("error"); // Quitar la clase de error si la edad es válida
   }
+
   if (edad < 18 || edad > 120) {
-    e.classList.add("error");
+    e.classList.add("error"); 
+  }else{// anexar else
+    e.classList.remove("error"); // Quitar la clase de error si el nombre es válido
   }
 
   // Aqui subi todo el texto en una sola linea para que sea mas legible
-  // 
-  if (nombre.length > 0 && (edad > 18 && edad < 120)) {
+  // Igual se cambio a >= para mayor claridad
+  if (nombre.length > 0 && (edad >= 18 && edad <= 120)) {
     agregarInvitado(nombre, edad, nacionalidad);
-  }
+     // Restaurar los valores predeterminados del formulario
+     formulario.reset();
+     n.classList.remove("error");
+     e.classList.remove("error");
+     na.selectedIndex = 0;
+   }
 };
 
 var botonBorrar = document.createElement("button");
@@ -56,7 +66,6 @@ document.body.appendChild(botonBorrar);
 //ya se ha agregado esos elementos antes de llamar a esa función. También se elimino la 
 //creación de los elementos spanNombre e inputNombre, para usar los elementos existentes.
 function agregarInvitado(nombre, edad, nacionalidad) {
-
   if (nacionalidad === "ar") {
     nacionalidad = "Argentina";
   } else if (nacionalidad === "mx") {
@@ -70,20 +79,18 @@ function agregarInvitado(nombre, edad, nacionalidad) {
   var lista = document.getElementById("lista-de-invitados");
 
   var elementoLista = document.createElement("div");
-  // Cambio de .added a .add, ya que classList.add() es la funcion correcta
-  // para agregar una clase a un elemento
   elementoLista.classList.add("elemento-lista");
   lista.appendChild(elementoLista);
 
   elementoLista.innerHTML = `
     <span>Nombre: </span>
-    <input value="${nombre}">
+    <input value="${nombre}" disabled>
     <br>
     <span>Edad: </span>
-    <input value="${edad}">
+    <input value="${edad}" disabled>
     <br>
     <span>Nacionalidad: </span>
-    <input value="${nacionalidad}">
+    <input value="${nacionalidad}" disabled>
     <br>
   `;
 
@@ -95,6 +102,6 @@ function agregarInvitado(nombre, edad, nacionalidad) {
   elementoLista.appendChild(botonBorrar);
 
   botonBorrar.onclick = function () {
-    botonBorrar.parentNode.remove();
+    elementoLista.remove(); // Eliminar el div completo que contiene los detalles del invitado
   };
 }
